@@ -8,6 +8,12 @@ fi
 
 USER=$1
 
+# Update
+sudo apt-get update
+
+# Screen
+sudo apt-get install screen
+
 # Install Git
 echo "Installing Git"
 sudo apt-get install git
@@ -16,11 +22,6 @@ sudo apt-get install git
 echo "Installing Java"
 sudo add-apt-repository -y ppa:webupd8team/java
 sudo apt-get -y install oracle-java8-installer
-
-
-# Install Boot
-echo "Installing Boot"
-bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
 
 # Install Leiningen
 cd /usr/local/bin
@@ -46,10 +47,10 @@ ruby -v
 # Install Metasploit
 echo "Installing Metasploit"
 cd /opt
-git clone https://github.com/rapid7/metasploit-framework.git
-chown -R $USER /opt/metasploit-framework
+sudo git clone https://github.com/rapid7/metasploit-framework.git
+sudo chown -R $USER /opt/metasploit-framework
 cd metasploit-framework
-rvm --default use ruby-${RUByVERSION}@metasploit-framework
+rvm --default use ruby-${RUBYVERSION}@metasploit-framework
 gem install bundler
 bundle install
 sudo bash -c 'for MSF in $(ls msf*); do ln -s /opt/metasploit-framework/$MSF /usr/local/bin/$MSF;done'
@@ -91,7 +92,7 @@ cd Empire
 
 # Install Burp
 cd ~/
-wget https://portswigger.net/burp/releases/download?product=free&version=1.7.27&type=linux
+wget "https://portswigger.net/burp/releases/download?product=free&version=1.7.27&type=linux"
 
 # Install Owasp Zap
 cd ~/
